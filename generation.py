@@ -1,11 +1,11 @@
-import random
-
 import numpy as np
-# import random
-from dataclasses import dataclass
-# from tiles import Tile, Tiles
 import pygame
 
+import random
+from dataclasses import dataclass
+
+
+from tiles import Tile, tiles
 
 @dataclass()
 class GridElement:
