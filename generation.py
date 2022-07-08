@@ -60,5 +60,4 @@ class TileGrid:
                 x_pos = x * self.scaler
                 y_pos = y * self.scaler
                 r = random.randint(0, 13)
-                print(f"randomint:{r} xy:{x},{y}")
                 surface.blit(images[r], (x_pos, y_pos))
