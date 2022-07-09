@@ -14,7 +14,6 @@ def wfc(r, c):
     black = (0, 0, 0)
     images = tiles.load_images()
 
-
     #  pygame setup
     size = (width, height)
     pygame.init()
@@ -23,13 +22,12 @@ def wfc(r, c):
     clock = pygame.time.Clock()
     fps = 1
 
-
     #  Data structure setup
     tile_grid = generation.TileGrid(width, height, scaler)
 
     # Running
     run = True
-    rerandomize= True
+    dostuff = True
     while run:
         clock.tick(fps)
         for event in pygame.event.get():
@@ -37,11 +35,12 @@ def wfc(r, c):
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_KP_ENTER:
-                    run = False
+                    tile_grid.iterate()
         # Update the game
-        if rerandomize:
+        if dostuff:
             screen.fill(black)
+            tile_grid.iterate()
             tile_grid.update(surface=screen, images=images)
+            dostuff = False
         pygame.display.update()
-        rerandomize = False
     pygame.quit()
