@@ -27,20 +27,16 @@ def wfc(r, c):
 
     # Running
     run = True
-    dostuff = True
     while run:
         clock.tick(fps)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_KP_ENTER:
+                if event.key == pygame.K_RETURN:
                     tile_grid.iterate()
         # Update the game
-        if dostuff:
-            screen.fill(black)
-            tile_grid.iterate()
-            tile_grid.update(surface=screen, images=images)
-            dostuff = False
+        screen.fill(black)
+        tile_grid.update(surface=screen, images=images)
         pygame.display.update()
     pygame.quit()

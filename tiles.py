@@ -30,8 +30,6 @@ class Tile:
     img_filepath: str
     adjacency_rules: NamedTuple
     image: pygame.Surface = None
-    # I would like this class to be frozen (immutable) but then how could I add the images.
-    # Maybe the images should use a dict or list index to correspond to Tiles instead
 
 
 tiles = [Tile('Field-BL Corner Mountain.png', Edges(Edge.MM, Edge.MM, Edge.FM, Edge.MF)),
