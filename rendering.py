@@ -34,7 +34,8 @@ def wfc(r, c):
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    tile_grid.iterate()
+                    tile_grid.test()
+                    # run = tile_grid.iterate()
         # Update the game
         screen.fill(black)
         tile_grid.update(surface=screen, images=images)
