@@ -28,7 +28,7 @@ class Edges(NamedTuple):
 class Tile:
     """Class that is used to initialize the possible tiles to be added as grid elements"""
     img_filepath: str
-    adjacency_rules: NamedTuple
+    constraints: NamedTuple
     image: pygame.Surface = None
 
 
@@ -48,7 +48,7 @@ tiles = [Tile('Field-BL Corner Mountain.png', Edges(Edge.MM, Edge.MM, Edge.FM, E
          Tile('Mountain.png', Edges(Edge.MM, Edge.MM, Edge.MM, Edge.MM))]
 
 
-def load_images():
+def load_images(size: int) -> list[pygame.Surface]:
     base_path = os.path.dirname(__file__) + "\\resources\\"
     filepaths = os.listdir("resources")
     images = []
@@ -57,7 +57,10 @@ def load_images():
         filepath_found = False
         for tile in tiles:
             if tile.img_filepath == image_filepath:
-                tile.image = pygame.image.load(base_path + image_filepath)
+                image = pygame.image.load(base_path + image_filepath)
+                # Transform scale of image
+                image = pygame.transform.scale(image, (size, size))
+                tile.image = image
                 images.append(tile.image)
                 filepath_found = True
         if not filepath_found:
