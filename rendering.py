@@ -4,18 +4,15 @@ import generation
 import tiles
 
 
-def wfc(r, c, size):
+def wfc(r, c, pixels):
     # Visuals setup
     os.environ["SDL_VIDEO_CENTERED"] = '1'
-    scaler = size
-    height = scaler * r
-    width = scaler * c
 
     black = (0, 0, 0)
-    images = tiles.load_images(size)
+    images = tiles.load_images(pixels)
 
     #  pygame setup
-    size = (width, height)
+    size = (c * pixels, r * pixels)
     pygame.init()
     pygame.display.set_caption("Tile Map Generation")
     screen = pygame.display.set_mode(size)
@@ -23,7 +20,7 @@ def wfc(r, c, size):
     fps = 5
 
     #  Data structure setup
-    tile_grid = generation.TileGrid(width, height, scaler)
+    tile_grid = generation.TileGrid(c, r, pixels)
 
     # Running
     run = True
@@ -40,6 +37,9 @@ def wfc(r, c, size):
                     # tile_grid.test()
                     # run = tile_grid.iterate()
                     keep_generating = not keep_generating
+                elif event.key == pygame.K_BACKSPACE:
+                    tile_grid.reset()
+                    keep_generating = True
         screen.fill(black)
         tile_grid.update(surface=screen, images=images)
         pygame.display.update()
