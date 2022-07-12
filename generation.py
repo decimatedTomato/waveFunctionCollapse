@@ -91,8 +91,16 @@ class TileGrid:
         chosen_tile_id = tiles.index(pot_tiles[r])
         element.tile_id = chosen_tile_id
         self.history.append((chosen_tile_id, element_pos))
+        print(self.history)
         # Once I've changed the entropy propogation system from being recalculated every iteration
         # propagate() should be here
+
+    def backtrack(self):
+        action = self.history.pop()
+        past_pos = action[1]
+        self.grid_array[past_pos].tile_id = None
+        self.recalculate_entropy()
+        # self.grid_array[past_pos].entropy = self.entropy_of(past_pos[0], past_pos[1])
 
     def iterate(self) -> bool:
         """Chooses a tile with the lowest entropy, collapses that tile"""
@@ -103,9 +111,13 @@ class TileGrid:
                 # Skip collapsed elements
                 if element.tile_id is not None:
                     continue
+
+                # Undo unsolvable tiles
                 if element.entropy == 0:
-                    # Start backtracking
-                    continue  # This could become problematic
+                    self.print_state()
+                    self.backtrack()
+                    return True
+
                 if min_entropy is None:
                     min_entropy = element.entropy
                     continue
@@ -120,9 +132,7 @@ class TileGrid:
             # self.recalculate_entropy()
             # return True
         if min_entropy == 0:
-            # print("Impossible position found")
-            # return False
-            pass
+            print("Impossible position found")
 
         # Now create a list of the lowest entropy grid elements
         pot_elements = []
@@ -177,3 +187,4 @@ class TileGrid:
                 x_pos = x * self.scaler
                 y_pos = y * self.scaler
                 surface.blit(images[element.tile_id], (x_pos, y_pos))
+

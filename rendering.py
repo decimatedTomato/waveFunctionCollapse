@@ -20,7 +20,7 @@ def wfc(r, c, size):
     pygame.display.set_caption("Tile Map Generation")
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
-    fps = 10
+    fps = 5
 
     #  Data structure setup
     tile_grid = generation.TileGrid(width, height, scaler)
@@ -39,7 +39,7 @@ def wfc(r, c, size):
                 if event.key == pygame.K_RETURN:
                     # tile_grid.test()
                     # run = tile_grid.iterate()
-                    run = False
+                    keep_generating = not keep_generating
         screen.fill(black)
         tile_grid.update(surface=screen, images=images)
         pygame.display.update()
